@@ -1,0 +1,74 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% load custom_tags %}
+
+{% block title %}
+Новостной портал
+{% endblock title %}
+
+{% block content %}
+<h1 style="text-align: center;"><strong>Новостной портал</strong></h1>
+
+<p style="text-align: center;"><strong>Количество:{{post|length}}</strong></p>
+
+    <hr>
+
+    {% if perms.news.add_post %}
+        <a href="{% url 'news_create' %} "><button type="button" class="btn btn-outline-dark"> Добавить новость </button></a>
+        {% endif %}
+
+    {% if post.categoryType == NW %}
+        <table>
+            <tr>
+                <td>Заголовок</td>
+                <td>Дата публикации</td>
+                <td>Превью</td>
+
+                {% if perms.news.change_news or perms.news.delete_news %}
+                {% endif %}
+
+            </tr>
+                {% for news in post %}
+                        <tr>
+                            <td style="text-align: justify;"><a href="{% url 'post_list' pk=news.id %}" >{{ news.heading|censor }}</a></td>
+                            <td style="text-align: left;">{{ news.time_in|date:'d M Y' }}</td>
+                            <td style="text-align: left;">{{ news.text|truncatechars:20|censor }}</td>
+
+                            <td>
+                                {% if perms.news.change_news %}
+                                <a href="{% url 'news_update' pk=news.id %}"><button type="button" class="btn btn-outline-warning"> Изменить </button></a>
+                                {% endif %}
+                                {% if perms.news.delete_news %}
+                                <a href="{% url 'news_delete' news.id %}"><button type="button" class="btn btn-outline-danger">Удалить</button></a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                {% endfor %}
+        </table>
+
+
+        </table>
+    {% else %}
+    <h2>Новостей нет!</h2>
+    {% endif %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1" ><button class="btn btn-light" type="button">&laquo; начало</button></a>
+            <a href="?page={{ page_obj.previous_page_number }}"><button class="btn btn-light" type="button">назад</button></a>
+            {% endif %}
+
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}"><button class="btn btn-light" type="button">вперед</button></a>
+            <a  href="?page={{ page_obj.paginator.num_pages }}"><button class="btn btn-light" type="button">конец &raquo;</button></a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock content %}
