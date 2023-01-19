@@ -190,6 +190,7 @@ LOGGING = {
     'handlers': {
         'error_critical': {
             'level': 'DEBUG',
+            'class': 'logging.FileHandler',
             'filters': ['require_debug_false'],
             'formatter': 'error_critical_f',
             'filename': 'log_info/errors.log',
@@ -220,9 +221,9 @@ LOGGING = {
                 'handlers': ['error_critical'],
                 'level': 'ERROR',
                 'propagate': False
-                },
             },
         },
     },
+},
 
 
