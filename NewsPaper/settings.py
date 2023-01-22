@@ -195,33 +195,32 @@ LOGGING = {
             'formatter': 'error_critical_f',
             'filename': 'log_info/errors.log',
         },
-
-        'loggers': {
-            'django': {
-                'handlers': ['general', 'console'],
-                'level': 'ERROR',
-                'propagate': True,
-            },
-            'django.request': {
-                'handlers': ['mail_admin', 'error_critical'],
-                'level': 'ERROR',
-                'propagate': False,
-            },
-            'django.server': {
-                'handlers': ['mail_admin', 'error_critical'],
-                'level': 'ERROR',
-                'propagate': False,
-            },
-            'django.template': {
-                'handlers': ['error_critical'],
-                'level': 'ERROR',
-                'propagate': False
-            },
-            'django.db.backends': {
-                'handlers': ['error_critical'],
-                'level': 'ERROR',
-                'propagate': False
-            },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['general', 'console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admin', 'error_critical'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['mail_admin', 'error_critical'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.template': {
+            'handlers': ['error_critical'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['error_critical'],
+            'level': 'ERROR',
+            'propagate': False,
         },
     },
 },
