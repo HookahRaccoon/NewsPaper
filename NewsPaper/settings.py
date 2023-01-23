@@ -175,11 +175,6 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'style': '{',
-    'formatters': {
-        'error_critical_f': {
-            'format': '%(levelname)s %(asctime)s %(pathname)s %(message)s %(exc_info)s'
-        },
-    },
     'filters': {
         'require_debug_true': {
             '()': 'django.utils.log.RequireDebugTrue',
@@ -188,18 +183,9 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse',
         },
     },
-    'handlers': {
-        'error_critical': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filters': ['require_debug_false'],
-            'formatter': 'error_critical_f',
-            'filename': 'errors.log',
-        },
-    },
     'loggers': {
         'django': {
-            'handlers': ['general', 'console'],
+            'handlers': ['news', 'console'],
             'level': 'ERROR',
             'propagate': True,
         },
@@ -222,6 +208,20 @@ LOGGING = {
             'handlers': ['error_critical'],
             'level': 'ERROR',
             'propagate': False,
+        },
+    },
+    'handlers': {
+        'error_critical': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filters': ['require_debug_false'],
+            'formatter': 'error_critical_f',
+            'filename': 'errors.log',
+        },
+    },
+    'formatters': {
+        'error_critical_f': {
+            'format': '%(levelname)s %(asctime)s %(pathname)s %(message)s %(exc_info)s'
         },
     },
 }
