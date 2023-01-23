@@ -185,7 +185,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['news', 'console'],
+            'handlers': ['console'],
             'level': 'ERROR',
             'propagate': True,
         },
@@ -218,10 +218,49 @@ LOGGING = {
             'formatter': 'error_critical_f',
             'filename': 'errors.log',
         },
+        'general': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filters': ['require_debug_false'],
+            'formatter': 'general_format',
+            'filename': 'general.log',
+        },
+        'file_security': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'formatter': 'security_format',
+            'filename': 'security.log'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'mail_admin': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'warning',
+        }
     },
     'formatters': {
         'error_critical_f': {
             'format': '%(levelname)s %(asctime)s %(pathname)s %(message)s %(exc_info)s'
+        },
+        'general_format': {
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)'
+        },
+        'security_format': {
+            'format': '{asctime} -- {levelname} -- {message} -- {module}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '%(asctime)-24s %(levelname)-8s %(message)s',
+        },
+        'warning': {
+            'format': '{asctime} -- {levelname} -- {message} --> {pathname}',
+            'style': '{',
         },
     },
 }
