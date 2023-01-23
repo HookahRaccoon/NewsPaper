@@ -216,7 +216,7 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'logging.FileHandler',
             'formatter': 'news',
-            'filename': 'general.log'
+            'filename': 'general.log',
         },
         'error_critical': {
             'level': 'DEBUG',
