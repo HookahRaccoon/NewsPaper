@@ -185,7 +185,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console'],
+            'handlers': ['console', 'console_warning', 'console_error', 'news'],
             'level': 'ERROR',
             'propagate': True,
         },
@@ -211,6 +211,13 @@ LOGGING = {
         },
     },
     'handlers': {
+        'news': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'news',
+            'filename': 'general.log'
+        },
         'error_critical': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
@@ -237,6 +244,18 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
+        'console_warning': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'warning'
+        },
+        'console_error': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'error_critical_f'
+        },
         'mail_admin': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
@@ -245,9 +264,6 @@ LOGGING = {
         }
     },
     'formatters': {
-        'error_critical_f': {
-            'format': '%(levelname)s %(asctime)s %(pathname)s %(message)s %(exc_info)s'
-        },
         'general_format': {
             'format': '%(asctime)s %(levelname)s %(module)s %(message)'
         },
@@ -260,6 +276,14 @@ LOGGING = {
         },
         'warning': {
             'format': '{asctime} -- {levelname} -- {message} --> {pathname}',
+            'style': '{',
+        },
+        'error_critical_f': {
+            'format': '{asctime} -- {levelname} -- {message} --> {pathname} *** {exc_info}',
+            'style': '{',
+        },
+        'news': {
+            'format': '{asctime} -- {levelname} -- {message} -- {module}',
             'style': '{',
         },
     },
