@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'djnago.middleware.locale.LocaleMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'NewsPaper.urls'
@@ -194,7 +194,7 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'filters': ['require_debug_false'],
             'formatter': 'error_critical_f',
-            'filename': 'log_info/errors.log',
+            'filename': 'errors.log',
         },
     },
     'loggers': {
