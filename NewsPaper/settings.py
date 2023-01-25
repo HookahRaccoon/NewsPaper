@@ -265,7 +265,7 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler',
-            'formatter': 'warning',
+            'formatter': 'warning'
         }
     },
     'formatters': {

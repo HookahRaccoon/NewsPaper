@@ -9,9 +9,13 @@ from datetime import datetime
 from .forms import NewsForm
 from django.contrib.auth.mixins import PermissionRequiredMixin
 import logging
+from django.http import HttpResponse
 
 logger = logging.getLogger(__name__)
 
+def index(request):
+    logger.error("Test!!")
+    return HttpResponse("Hello logging world.")
 
 class NewsList(ListView):
     model = Post  # Модель обьекта для вывода
