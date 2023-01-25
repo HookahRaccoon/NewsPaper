@@ -209,6 +209,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False,
         },
+        'django.security': {
+            'handlers': ['file_security'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
     },
     'handlers': {
         'news': {
@@ -265,7 +270,7 @@ LOGGING = {
     },
     'formatters': {
         'general_format': {
-            'format': '%(asctime)s %(levelname)s %(module)s %(message)'
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s'
         },
         'security_format': {
             'format': '{asctime} -- {levelname} -- {message} -- {module}',
