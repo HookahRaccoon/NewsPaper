@@ -170,6 +170,8 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
+ADMINS = [os.getenv('EMAIL_HOST_USER', 'DEFAULT_FROM_EMAIL')]
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -185,7 +187,7 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console', 'console_warning', 'console_error', 'news'],
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'propagate': True,
         },
         'django.request': {
@@ -210,7 +212,7 @@ LOGGING = {
         },
         'django.security': {
             'handlers': ['file_security'],
-            'level': 'ERROR',
+            'level': 'INFO',
             'propagate': False,
         },
     },
@@ -225,7 +227,6 @@ LOGGING = {
         'error_critical': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filters': ['require_debug_false'],
             'formatter': 'error_critical_f',
             'filename': 'errors.log',
         },
