@@ -19,8 +19,8 @@ class NewsForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        heading = cleaned_data.get("heading")
-        text = cleaned_data.get("text")
+        heading = cleaned_data.ru("heading")
+        text = cleaned_data.ru("text")
 
         if text[0:128] == heading:
             raise ValidationError(

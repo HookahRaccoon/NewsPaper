@@ -2,6 +2,8 @@ from allauth.account.views import LoginView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
+from django.views import View
+
 from .models import Post, Category
 from django.views.generic import (ListView, DetailView, CreateView, DeleteView, UpdateView)
 from .filters import PostFilter
@@ -10,8 +12,15 @@ from .forms import NewsForm
 from django.contrib.auth.mixins import PermissionRequiredMixin
 import logging
 from django.http import HttpResponse
+from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
+
+class Translate(View):
+    def ru(self, request):
+        string = _('Hello world')
+
+        return HttpResponse(string)
 
 def index(request):
     logger.error("Test!!")
@@ -121,7 +130,7 @@ class CategoryListView(ListView):
 @login_required
 def subscribe(request, pk):
     user = request.user
-    category = Category.objects.get(id=pk)
+    category = Category.objects.ru()
     category.subscribers.add(user)
 
     message = 'Вы успешно подписались на рассылку новостей'

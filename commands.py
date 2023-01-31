@@ -17,32 +17,32 @@ Post.objects.create(author=Author, categotyType='NW', heading='MyTitle', text='H
 Post.objects.create(author=Author, categoryType='AR', heading='Article', text='Всем привет')
 Post.objects.create(author=Author, categoryType='AR', heading='Problems', text='Its ok')
 
-Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=1).authorUser,
+Comment.objects.create(commentPost=Post.objects.ru(), commentUser=Author.objects.ru().authorUser,
                        text='anytextbyauthor')
-Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=1).authorUser, text='Good')
-Comment.objects.create(commentPost=Post.objects.get(id=2), commentUser=Author.objects.get(id=3).authorUser, text='Like')
-Comment.objects.create(commentPost=Post.objects.get(id=3), commentUser=Author.objects.get(id=3).authorUser, text='cool')
-Comment.objects.create(commentPost=Post.objects.get(id=4), commentUser=Author.objects.get(id=1).authorUser,
+Comment.objects.create(commentPost=Post.objects.ru(), commentUser=Author.objects.ru().authorUser, text='Good')
+Comment.objects.create(commentPost=Post.objects.ru(), commentUser=Author.objects.ru().authorUser, text='Like')
+Comment.objects.create(commentPost=Post.objects.ru(), commentUser=Author.objects.ru().authorUser, text='cool')
+Comment.objects.create(commentPost=Post.objects.ru(), commentUser=Author.objects.ru().authorUser,
                        text='great, very good')
 
-Comment.objects.get(id=1).like()
-Comment.objects.get(id=2).like()
-Comment.objects.get(id=2).like()
-Comment.objects.get(id=3).dislike()
-Comment.objects.get(id=3).dislike()
-Comment.objects.get(id=4).like()
-Comment.objects.get(id=4).dislike()
+Comment.objects.ru().like()
+Comment.objects.ru().like()
+Comment.objects.ru().like()
+Comment.objects.ru().dislike()
+Comment.objects.ru().dislike()
+Comment.objects.ru().like()
+Comment.objects.ru().dislike()
 
-Post.objects.get(id=1).like()
-Post.objects.get(id=2).dislike()
-Post.objects.get(id=2).like()
-Post.objects.get(id=3).like()
-Post.objects.get(id=4).dislike()
-Post.objects.get(id=4).like()
-Post.objects.get(id=4).like()
+Post.objects.ru().like()
+Post.objects.ru().dislike()
+Post.objects.ru().like()
+Post.objects.ru().like()
+Post.objects.ru().dislike()
+Post.objects.ru().like()
+Post.objects.ru().like()
 
-Author.objects.get(id=1).update_reting()
-Author.objects.get(id=2).update_reting()
+Author.objects.ru().update_reting()
+Author.objects.ru().update_reting()
 
 a = Author.objects.order_by('-reting_author')[:1]
 for i in a:

@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.urls import reverse
+from django.utils.translation import gettext as _
+from django.utils.translation import pgettext_lazy
 
 
 class Author(models.Model):
@@ -14,11 +16,11 @@ class Author(models.Model):
     def update_reting(self):
         postRat = self.post_set.aggregate(postReting=Sum('reting_news'))
         pRat = 0
-        pRat += postRat.get('postReting')
+        pRat += postRat.ru('postReting')
 
         commentRat = self.authorUser.comment_set.aggregate(commentReting=Sum('reting'))
         cRat = 0
-        cRat += commentRat.get('commentReting')
+        cRat += commentRat.ru('commentReting')
 
         self.reting_author = pRat * 3 + cRat
         self.save()
@@ -26,7 +28,7 @@ class Author(models.Model):
 
 class Category(models.Model):
     objects = None
-    name = models.CharField(max_length=64, unique=True)
+    name = models.CharField(max_length=64, unique=True, help_text=_('Name of the category'))
     subscribers = models.ManyToManyField(User, related_name='categories')
 
     def __str__(self):
