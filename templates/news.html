@@ -5,6 +5,7 @@
 {% load custom_tags %}
 
 {% load i18n %}
+{% load tz %}
 
 {% block title %}
 Новостной портал
@@ -88,4 +89,8 @@
             {% endif %}
         </span>
     </div>
+
+    {{ TIME_ZONE }}
+    {{ current_time|timezone:TIME_ZONE }}
+
 {% endblock content %}

@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
     'django_apscheduler',
-    'basic.middlewares.TimezoneMiddleware',
+    'basic.middlewares.TimeZoneMiddleware',
 ]
 
 SITE_ID = 1
