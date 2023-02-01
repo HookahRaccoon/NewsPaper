@@ -7,6 +7,10 @@ class CategoryAdmin(TranslationAdmin):
     model = Category
 
 
+class CategoryAdmin(TranslationAdmin):
+    model = Post
+
+
 admin.site.register(Author)
 admin.site.register(Category)
 admin.site.register(Post)

@@ -24,9 +24,14 @@ class Translate(View):
         return HttpResponse(string)
 
 
-def index(request):
-    logger.error("Test!!")
-    return HttpResponse("Hello logging world.")
+def index(View):
+    def get(self, request):
+        models = Post.objects.all()
+
+        context = {
+            'posts': models,
+        }
+        return HttpResponse(render(request, 'news.html', context))
 
 
 class NewsList(ListView):
