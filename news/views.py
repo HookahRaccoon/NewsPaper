@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views import View
+from django.http import HttpResponse
 
 from .models import Post, Category
 from django.views.generic import (ListView, DetailView, CreateView, DeleteView, UpdateView)
@@ -11,27 +12,32 @@ from datetime import datetime
 from .forms import NewsForm
 from django.contrib.auth.mixins import PermissionRequiredMixin
 import logging
-from django.http import HttpResponse
 from django.utils.translation import gettext as _
+from django.utils import timezone
+from django.utils.translation import activate, get_supported_language_variant
+from django.shortcuts import redirect
+
+import pytz
 
 logger = logging.getLogger(__name__)
 
 
-class Translate(View):
-    def ru(self, request):
-        string = _('Hello world')
-
-        return HttpResponse(string)
-
-
-def index(View):
+class TranslateTime(View):
     def get(self, request):
+        curent_time = timezone.now()
+
         models = Post.objects.all()
 
         context = {
             'posts': models,
+            'current_time': timezone.now(),
+            'timezones': pytz.common_timezones
         }
         return HttpResponse(render(request, 'news.html', context))
+
+        def post(self, request):
+            request.session['django_timezone'] = request.POST['timezone']
+            return redirect('/')
 
 
 class NewsList(ListView):
