@@ -1,5 +1,9 @@
 from django.contrib import admin
 from .models import Author, Category, PostCategory, Post, Comment
+from modeltranslation.admin import TranslationAdmin
+
+class CategoryAdmin(TranslationAdmin):
+    model = Category
 
 admin.site.register(Author)
 admin.site.register(Category)
