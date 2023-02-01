@@ -16,15 +16,18 @@ from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
 
+
 class Translate(View):
     def ru(self, request):
         string = _('Hello world')
 
         return HttpResponse(string)
 
+
 def index(request):
     logger.error("Test!!")
     return HttpResponse("Hello logging world.")
+
 
 class NewsList(ListView):
     model = Post  # Модель обьекта для вывода
