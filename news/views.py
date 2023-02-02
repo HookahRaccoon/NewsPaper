@@ -24,20 +24,19 @@ logger = logging.getLogger(__name__)
 
 class TranslateTime(View):
     def get(self, request):
-        curent_time = timezone.now()
-
         models = Post.objects.all()
 
         context = {
-            'posts': models,
+            'post': models,
             'current_time': timezone.now(),
             'timezones': pytz.common_timezones
         }
+
         return HttpResponse(render(request, 'news.html', context))
 
-        def post(self, request):
-            request.session['django_timezone'] = request.POST['timezone']
-            return redirect('/')
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/')
 
 
 class NewsList(ListView):

@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
     'django_apscheduler',
-    'basic.middlewares.TimeZoneMiddleware',
 ]
 
 SITE_ID = 1
@@ -64,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'basic.middlewares.TimeZoneMiddleware',
 ]
 
 ROOT_URLCONF = 'NewsPaper.urls'
