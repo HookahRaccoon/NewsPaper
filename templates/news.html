@@ -7,11 +7,24 @@
 {% load i18n %}
 {% load tz %}
 
+
 {% block title %}
 Новостной портал
 {% endblock title %}
 
 {% block content %}
+
+
+        <!--Фон зависимый от времени-->
+    <head>
+        <style>
+            body {background-color:  {% if current_time.hour >= 19 or current_time.hour <= 7%} #494D5F {% else %} #FFFFFF {% endif %};}
+        </style>
+    </head>
+
+
+    <!--Часовой пояс-->
+    <body>
     {% get_current_timezone as TIME_ZONE %}
     <form action="" method="POST">
         {% csrf_token %}
@@ -21,12 +34,15 @@
             <option value="{{ tz }}"{% if tz == TIME_ZONE %} selected{% endif %}>{{ tz }}</option>
             {% endfor %}
         </select>
-        <input type="submit" value="Set">
+        <input type="submit" value="Set" id="timezone">
     </form>
 
     {{ TIME_ZONE }}
     {{ current_time|timezone:TIME_ZONE }}
+    {{now|date:"Y-m-d H:i:s"}}
+    </body>
 
+    <!--Выбор языка-->
     <form action="{% url 'set_language' %}" method="POST"> {% csrf_token %} <!-- Не забываем по csrf_token для POST-запросов -->
         <input type="hidden" name="next" value="{{ redirect_to }}">
 
@@ -42,12 +58,14 @@
         </select>
         <input type="submit" value="set">
     </form>
+
 <h1 style="text-align: center;"><strong>Новостной портал</strong></h1>
 
 <p style="text-align: center;"><strong>Количество:{{post|length}}</strong></p>
 
     <hr>
 
+    <!--Посты-->
     {% if perms.news.add_post %}
         <a href="{% url 'news_create' %} "><button type="button" class="btn btn-outline-dark"> Добавить новость </button></a>
         {% endif %}
@@ -82,11 +100,11 @@
         </table>
 
 
-        </table>
     {% else %}
     <h2>Новостей нет!</h2>
     {% endif %}
 
+    <!--Разметка страниц-->
     <div class="pagination">
         <span class="step-links">
             {% if page_obj.has_previous %}

@@ -21,22 +21,47 @@ import pytz
 
 logger = logging.getLogger(__name__)
 
+my_timezones = {
+    'Moscow': 'Europe/Moscow',
+    'Paris': 'Europe/Paris',
+    'New York': 'America/New_York',
+}
 
-class TranslateTime(View):
-    def get(self, request):
-        models = Post.objects.all()
 
-        context = {
-            'post': models,
-            'current_time': timezone.now(),
-            'timezones': pytz.common_timezones
-        }
+# class TranslateTime(View):
+#     def set_timezone(request):
+#         if request.method == 'POST':
+#             request.session['django_timezone'] = request.POST['timezone']
+#             return redirect('news:news')
+#         else:
+#             return render(request, 'news.html', {'timezone': my_timezones})
+#
+#     def post(self, request):
+#         request.session['django_timezone'] = request.POST['timezone']
+#         return redirect('news:news')
+#
+#     def get_context_data(self, **kwargs):
+#         current_time = timezone.localtime(timezone.now())
+#         context = super.get_context_data(**kwargs)
+#         context['current_time'] = current_time
+#         context['timezones'] = pytz.common_timezones
+#         return context
 
-        return HttpResponse(render(request, 'news.html', context))
 
-    def post(self, request):
-        request.session['django_timezone'] = request.POST['timezone']
-        return redirect('/')
+    # def get(self, request):
+    #     models = Post.objects.all()
+    #
+    #     context = {
+    #         'POST': models,
+    #         'current_time': timezone.now(),
+    #         'timezones': pytz.common_timezones
+    #     }
+    #
+    #     return HttpResponse(render(request, 'news.html', context))
+    #
+    # def post(self, request):
+    #     request.session['django_timezone'] = request.POST['timezone']
+    #     return redirect('/')
 
 
 class NewsList(ListView):
@@ -56,6 +81,38 @@ class NewsList(ListView):
         self.filterset = PostFilter(self.request.GET, queryset)
         return self.filterset.qs
 
+    # def set_timezone(request):
+    #     if request.method == 'POST':
+    #         request.session['django_timezone'] = request.POST['timezone']
+    #         return redirect('news:news')
+    #     else:
+    #         return render(request, 'news.html', {'timezone': my_timezones})
+    #
+    # def post(self, request):
+    #     request.session['django_timezone'] = request.POST['timezone']
+    #     return redirect('news:news')
+    #
+    # def time(self, **kwargs):
+    #     current_time = timezone.localtime(timezone.now())
+    #     context = super.time(**kwargs)
+    #     context['current_time'] = current_time
+    #     context['timezones'] = pytz.common_timezones
+    #     return context
+
+    def get(self, request):
+        models = Post.objects.all()
+
+        context = {
+            'post': models,
+            'current_time': timezone.now(),
+            'timezones': pytz.common_timezones
+        }
+
+        return HttpResponse(render(request, 'news.html', context))
+
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/')
 
 class NewsFilter(ListView):
     model = Post  # Модель обьекта для вывода
